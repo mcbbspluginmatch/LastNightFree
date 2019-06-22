@@ -3,10 +3,8 @@ package lvhaoxuan.last.night.listener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 import lvhaoxuan.last.night.LastNight;
-import lvhaoxuan.last.night.drop.DropItemGroup;
 import lvhaoxuan.last.night.forge.LastNightGunForgeManagaer;
 import lvhaoxuan.last.night.forge.LastNightGunRecipe;
 import lvhaoxuan.last.night.forge.LastNightGunRecipeInventory;
@@ -14,16 +12,12 @@ import lvhaoxuan.last.night.forge.LastNightGunRecipeMakerInventory;
 import lvhaoxuan.last.night.forge.RecipeItem;
 import lvhaoxuan.last.night.gun.*;
 import lvhaoxuan.last.night.util.NBT;
-import me.itsatacoshop247.TreeAssist.events.TATreeBrokenEvent;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
-import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.*;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.block.Block;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
@@ -381,15 +375,6 @@ public class MainListener implements Listener {
         Entity en = e.getEntity();
         if (en instanceof Wolf && e.getTarget() instanceof Skeleton) {
             e.setCancelled(true);
-        }
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void TATreeBrokenEvent(TATreeBrokenEvent e) {
-        DropItemGroup dig = LastNight.resourceDropsMap.get("树木");
-        for (ItemStack item : dig.getRandomItems()) {
-            e.getPlayer().sendTitle("", item.getItemMeta().getDisplayName() + " * " + item.getAmount(), 10, 70, 20);
-            e.getPlayer().getInventory().addItem(item);
         }
     }
 
