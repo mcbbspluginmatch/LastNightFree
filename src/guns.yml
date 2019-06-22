@@ -27,41 +27,71 @@
   forgeTime: 6000
   particle: SMOKE_NORMAL
 强袭榴弹炮:
+#枪械名，获取时要用
   name: §f强袭榴弹炮
+  #显示名
   type: 强袭榴弹炮
+  #枪械名，获取时要用
   value: 500
+  #分数基数
   damage: 45.0
+  #伤害
   fire: 11.5
+  #火力
   fireSpeed: 50.0
+  #每分钟打几发
   bulletAmount: 4
+  #弹夹弹药量
   maxBulletAmount: 24
+  #总弹药量
   solidValue: 100
+  #坚固值（暂时没用）
   maxDurability: 320
+  #最大耐久
   durability: 320
+  #耐久（和上面一样就行了）
   itemType: IRON_PICKAXE:0
+  #物品类型
   bulletEntity: SNOWBALL
+  #子弹类型
   bulletSpeed: 1.0
+  #子弹速度
   everyBulletAmount: 1
+  #每发打几个子弹（可做喷子）
   replaceTime: 5.0
+  #换弹时间（秒）
   bulletChest: 粗制弹药箱
+  #弹药箱类型
   bulletSpread: 0.0
+  #子弹散布
   explosionDamage: 200
+  #爆炸伤害，为0则不炸
   explosionRange: 3
+  #爆炸范围
   range: 50
+  #射程
   bulletGravity: true
+  #子弹重力
   enlarge: 5
+  #开镜倍数（开镜缓慢效果大小）
   pitchAdd: -1 -2
+  #开火上下偏移（-为上）
   yawAdd: -1 1
+  #开火左右偏移
   randomRanges:
   - damage -10 30
+  #随机值（相对），名字同上面，可增加
   sources:
   - 六角钉 12
   - 铁铸件 12 
   - 布 12
   - 骨头 24
   - 高分子涂层 4
+  #锻造所需材料，不填无法锻造
   forgeTime: 6000
+  #锻造时间
   particle: SMOKE_NORMAL
+  #弹道特效
 管理榴弹炮:
   name: §f管理榴弹炮
   type: 管理榴弹炮

@@ -141,7 +141,7 @@ public class Commanders implements CommandExecutor {
         sender.sendMessage("§c§l▏   §c/ln gun paper [类型] [最大使用次数] [数量] [玩家]   给玩家图纸");
         sender.sendMessage("§c§l▏   §c/ln bc [名称]  放置一个弹药箱");
         sender.sendMessage("§c§l▏   §c/ln bc list  查看所有弹药箱");
-        sender.sendMessage("§c§l▏   §c/ln item [物品名称]   将手持物品以物品名称添加到物品组");
+        sender.sendMessage("§c§l▏   §c/ln item [物品名称]   将手持物品以名称添加到物品组");
         sender.sendMessage("§c§l▏   §c/ln items     查看所有物品");
         sender.sendMessage("§c§l▏   §c/ln getItem [物品名称] [数量] [玩家]  获取一个物品");
         sender.sendMessage("§c§m§l  §6§m§l  §e§m§l  §a§m§l  §b§m§l  §e§l明日之后§b§m§l  §a§m§l  §e§m§l  §6§m§l  §c§m§l  ");
