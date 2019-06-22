@@ -1,0 +1,199 @@
+蒙德拉贡步枪:
+  name: §f蒙德拉贡步枪
+  type: 蒙德拉贡步枪
+  value: 200
+  damage: 27.0
+  fire: 4.0
+  fireSpeed: 40.0
+  bulletAmount: 6
+  maxBulletAmount: 27
+  solidValue: 100
+  maxDurability: 300
+  durability: 300
+  itemType: WOOD_AXE:0
+  bulletEntity: ARROW
+  bulletSpeed: 50.0
+  everyBulletAmount: 1
+  replaceTime: 3.0
+  bulletChest: 粗制弹药箱
+  bulletSpread: 1.0
+  explosionDamage: 0
+  explosionRange: 0
+  range: 10
+  bulletGravity: true
+  enlarge: 0
+  pitchAdd: -5 -3
+  yawAdd: -1 1
+  forgeTime: 6000
+  particle: SMOKE_NORMAL
+强袭榴弹炮:
+  name: §f强袭榴弹炮
+  type: 强袭榴弹炮
+  value: 500
+  damage: 45.0
+  fire: 11.5
+  fireSpeed: 50.0
+  bulletAmount: 4
+  maxBulletAmount: 24
+  solidValue: 100
+  maxDurability: 320
+  durability: 320
+  itemType: IRON_PICKAXE:0
+  bulletEntity: SNOWBALL
+  bulletSpeed: 1.0
+  everyBulletAmount: 1
+  replaceTime: 5.0
+  bulletChest: 粗制弹药箱
+  bulletSpread: 0.0
+  explosionDamage: 200
+  explosionRange: 3
+  range: 50
+  bulletGravity: true
+  enlarge: 5
+  pitchAdd: -1 -2
+  yawAdd: -1 1
+  randomRanges:
+  - damage -10 30
+  sources:
+  - 六角钉 12
+  - 铁铸件 12 
+  - 布 12
+  - 骨头 24
+  - 高分子涂层 4
+  forgeTime: 6000
+  particle: SMOKE_NORMAL
+管理榴弹炮:
+  name: §f管理榴弹炮
+  type: 管理榴弹炮
+  value: 500
+  damage: 200.0
+  fire: 100.0
+  fireSpeed: 1000.0
+  bulletAmount: 1000
+  maxBulletAmount: 10000
+  solidValue: 10000
+  maxDurability: 320000
+  durability: 320000
+  itemType: DIAMOND_AXE:2
+  bulletEntity: SNOWBALL
+  bulletSpeed: 1.0
+  everyBulletAmount: 1
+  replaceTime: 0.0
+  bulletChest: 粗制弹药箱
+  bulletSpread: 0.0
+  explosionDamage: 2000
+  explosionRange: 5
+  range: 5000
+  bulletGravity: true
+  enlarge: 1
+  pitchAdd: 0 0
+  yawAdd: 0 0
+  forgeTime: 6000
+UZI冲锋枪:
+  name: §fUZI冲锋枪
+  type: UZI冲锋枪
+  value: 200
+  damage: 37.0
+  fire: 0.9
+  fireSpeed: 600.0
+  bulletAmount: 20
+  maxBulletAmount: 220
+  solidValue: 100
+  maxDurability: 320
+  durability: 320
+  itemType: IRON_HOE:0
+  bulletEntity: ARROW
+  bulletSpeed: 50.0
+  everyBulletAmount: 1
+  replaceTime: 2.0
+  bulletChest: 粗制弹药箱
+  bulletSpread: 1.0
+  explosionDamage: 0
+  explosionRange: 0
+  range: 10
+  bulletGravity: true
+  enlarge: 0
+  pitchAdd: -2 -3
+  yawAdd: -2 2
+  forgeTime: 6000
+雷明顿M870:
+  name: §f雷明顿M870
+  type: 雷明顿M870
+  value: 200
+  damage: 31.0
+  fire: 0.8
+  fireSpeed: 50.0
+  bulletAmount: 3
+  maxBulletAmount: 35
+  solidValue: 100
+  maxDurability: 300
+  durability: 300
+  itemType: WOOD_PICKAXE:0
+  bulletEntity: ARROW
+  bulletSpeed: 25.0
+  everyBulletAmount: 5
+  replaceTime: 7.0
+  bulletChest: 粗制弹药箱
+  bulletSpread: 3.0
+  explosionDamage: 0
+  explosionRange: 0
+  range: 4
+  bulletGravity: true
+  enlarge: 0
+  pitchAdd: -10 -15
+  yawAdd: -3 3
+  forgeTime: 6000
+95式突击步枪:
+  name: §f95式突击步枪
+  type: 95式突击步枪
+  value: 400
+  damage: 60.0
+  fire: 1.3
+  fireSpeed: 550.0
+  bulletAmount: 30
+  maxBulletAmount: 330
+  solidValue: 100
+  maxDurability: 320
+  durability: 320
+  itemType: DIAMOND_HOE:0
+  bulletEntity: ARROW
+  bulletSpeed: 100.0
+  everyBulletAmount: 1
+  replaceTime: 2.0
+  bulletChest: 粗制弹药箱
+  bulletSpread: 1.0
+  explosionDamage: 0
+  explosionRange: 0
+  range: 20
+  bulletGravity: true
+  enlarge: 3
+  pitchAdd: -1 -2
+  yawAdd: -0.5 0.5
+  forgeTime: 6000
+吉斯塔夫火箭筒:
+  name: §f吉斯塔夫火箭筒
+  type: 吉斯塔夫火箭筒
+  value: 500
+  damage: 78.0
+  fire: 17.0
+  fireSpeed: 50.0
+  bulletAmount: 5
+  maxBulletAmount: 25
+  solidValue: 100
+  maxDurability: 400
+  durability: 400
+  itemType: STICK:0
+  bulletEntity: SNOWBALL
+  bulletSpeed: 2.0
+  everyBulletAmount: 1
+  replaceTime: 6.0
+  bulletChest: 粗制弹药箱
+  bulletSpread: 0.0
+  explosionDamage: 400
+  explosionRange: 5
+  range: 40
+  bulletGravity: false
+  enlarge: 20
+  pitchAdd: -1 0
+  yawAdd: 0 0
+  forgeTime: 6000

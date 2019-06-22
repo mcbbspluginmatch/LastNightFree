@@ -1,0 +1,7 @@
+name: LastNight
+main: lvhaoxuan.last.night.LastNight
+version: 1.0
+author: lvhaoxuan
+softdepend: [TreeAssist, Multiverse-Core, IslandWorld]
+commands:
+    ln:
