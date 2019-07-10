@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lvhaoxuan.last.night.LastNight;
 import lvhaoxuan.last.night.util.NBT;
 import org.bukkit.entity.LivingEntity;
@@ -21,11 +19,12 @@ import org.bukkit.Material;
 import org.bukkit.Bukkit;
 
 public class BreakableBlockListener implements Listener {
-
+    
     public static HashMap<Location, Integer> blockMap = new HashMap<>();
     public static List<String> allowBreakWorld = new ArrayList<>();
-    public static int i = 0;
-
+    public static int id = 0;
+    public static HashMap<Location, Integer> blockIDMap = new HashMap<>();
+    
     @EventHandler(priority = EventPriority.HIGHEST)
     public void PlayerInteractEvent(PlayerInteractEvent e) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
         if (e.hasBlock() && LastNight.breakableBlockMap.containsKey(e.getClickedBlock().getType()) && allowBreakWorld.contains(e.getClickedBlock().getWorld().getName())) {
@@ -35,7 +34,7 @@ public class BreakableBlockListener implements Listener {
             blockMap.put(e.getClickedBlock().getLocation(), blockMap.get(e.getClickedBlock().getLocation()) - 1);
         }
     }
-
+    
     @EventHandler
     public void ProjectileHitEvent(ProjectileHitEvent e) {
         Projectile p = (Projectile) e.getEntity();
@@ -48,7 +47,7 @@ public class BreakableBlockListener implements Listener {
                         }
                         blockMap.put(e.getHitBlock().getLocation(), blockMap.get(e.getHitBlock().getLocation()) - p.getMetadata("lastnight_damage").get(0).asInt());
                         for (Player player : Bukkit.getOnlinePlayers()) {
-                            sendPacketPlayOutPosition(player, e.getHitBlock().getLocation(), 10 * (LastNight.breakableBlockMap.get(e.getHitBlock().getType()) - blockMap.get(e.getHitBlock().getLocation())) / LastNight.breakableBlockMap.get(e.getHitBlock().getType()));
+                            sendPacketPlayOutBlockBreakAnimation(player, e.getHitBlock().getLocation(), 10 * (LastNight.breakableBlockMap.get(e.getHitBlock().getType()) - blockMap.get(e.getHitBlock().getLocation())) / LastNight.breakableBlockMap.get(e.getHitBlock().getType()));
                         }
                     } else {
                         if (!blockMap.containsKey(e.getHitBlock().getLocation())) {
@@ -56,10 +55,13 @@ public class BreakableBlockListener implements Listener {
                         }
                         blockMap.put(e.getHitBlock().getLocation(), blockMap.get(e.getHitBlock().getLocation()) - 1);
                         for (Player player : Bukkit.getOnlinePlayers()) {
-                            sendPacketPlayOutPosition(player, e.getHitBlock().getLocation(), 10 * (LastNight.breakableBlockMap.get(e.getHitBlock().getType()) - blockMap.get(e.getHitBlock().getLocation())) / LastNight.breakableBlockMap.get(e.getHitBlock().getType()));
+                            sendPacketPlayOutBlockBreakAnimation(player, e.getHitBlock().getLocation(), 10 * (LastNight.breakableBlockMap.get(e.getHitBlock().getType()) - blockMap.get(e.getHitBlock().getLocation())) / LastNight.breakableBlockMap.get(e.getHitBlock().getType()));
                         }
                     }
                     if (blockMap.get(e.getHitBlock().getLocation()) < 0) {
+                        for (Player player : Bukkit.getOnlinePlayers()) {
+                            sendPacketPlayOutBlockBreakAnimation(player, e.getHitBlock().getLocation(), 10);
+                        }
                         sendPacketPlayOutTitle((Player) p.getShooter(), e.getHitBlock().getType() + " §6" + 0 + "§e/§a" + LastNight.breakableBlockMap.get(e.getHitBlock().getType()), 10, 30, 10);
                         e.getHitBlock().setType(Material.AIR);
                         blockMap.remove(e.getHitBlock().getLocation());
@@ -70,14 +72,17 @@ public class BreakableBlockListener implements Listener {
             }
         }
     }
-
-    public static void sendPacketPlayOutPosition(Player player, Location loc, int value) {
+    
+    public static void sendPacketPlayOutBlockBreakAnimation(Player player, Location loc, int value) {
+        if (!blockIDMap.containsKey(loc)) {
+            blockIDMap.put(loc, id++);
+        }
         try {
             Class<?> packetPlayOutBlockBreakAnimationClass = NBT.Package.MINECRAFT_SERVER.getClass("PacketPlayOutBlockBreakAnimation");
             Class<?> blockPositionClass = NBT.Package.MINECRAFT_SERVER.getClass("BlockPosition");
             Class<?> packetClass = NBT.Package.MINECRAFT_SERVER.getClass("Packet");
             Object packet = NBT.create(packetPlayOutBlockBreakAnimationClass,
-                    new NBT.ParamGroup(i++, int.class),
+                    new NBT.ParamGroup(blockIDMap.get(loc), int.class),
                     new NBT.ParamGroup(NBT.create(blockPositionClass, new NBT.ParamGroup(loc.getBlockX(), int.class), new NBT.ParamGroup(loc.getBlockY(), int.class), new NBT.ParamGroup(loc.getBlockZ(), int.class)), blockPositionClass),
                     new NBT.ParamGroup(value, int.class));
             Object nmsPlayer = NBT.doMethod(player, "getHandle");
@@ -86,7 +91,7 @@ public class BreakableBlockListener implements Listener {
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
         }
     }
-
+    
     public static void sendPacketPlayOutTitle(Player player, String str, int a, int b, int c) {
         try {
             Class<?> packetPlayOutTitleClass = NBT.Package.MINECRAFT_SERVER.getClass("PacketPlayOutTitle");
