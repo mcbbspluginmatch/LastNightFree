@@ -1,3 +1,5 @@
 allowBreakWorlds:
     - world
+#启用方块破坏的世界
 limitDrop: true
+#是否使用本插件掉落系统（除枪械和配方都掉落）
