@@ -99,8 +99,8 @@ public class FireHandle {
         double min = Math.min(paramMin, paramMax);
         double max = Math.max(paramMin, paramMax);
         if (min == max) {
-            return 0;
+            return min;
         }
-        return Math.random() * (max - min + 1) + min;
+        return Math.random() * (max - min) + min;
     }
 }

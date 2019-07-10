@@ -2,6 +2,6 @@ name: LastNight
 main: lvhaoxuan.last.night.LastNight
 version: 1.0
 author: lvhaoxuan
-softdepend: [TreeAssist, Multiverse-Core, IslandWorld]
+softdepend: [TreeAssist, Multiverse-Core, IslandWorld, WorldProtect]
 commands:
     ln:

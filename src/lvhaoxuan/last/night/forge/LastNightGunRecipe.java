@@ -93,10 +93,10 @@ public class LastNightGunRecipe extends LastNightItemGun {
             this.shortValue = item.getData().getData();
             this.amount = item.getAmount();
             this.enlarge = nbt.getInt("放大");
-            this.pitchAddMax = nbt.getFloat("枪口上扬最大");
-            this.pitchAddMin = nbt.getFloat("枪口上扬最小");
-            this.yawAddMax = nbt.getFloat("枪口偏移最大");
-            this.yawAddMin = nbt.getFloat("枪口偏移最小");
+            this.pitchAddMax = nbt.getDouble("枪口上扬最大");
+            this.pitchAddMin = nbt.getDouble("枪口上扬最小");
+            this.yawAddMax = nbt.getDouble("枪口偏移最大");
+            this.yawAddMin = nbt.getDouble("枪口偏移最小");
             this.maxUse = nbt.getInt("最大使用次数");
             this.use = nbt.getInt("剩余使用次数");
             this.forgeTime = nbt.getInt("锻造时间");
@@ -151,10 +151,10 @@ public class LastNightGunRecipe extends LastNightItemGun {
             nbt.setDouble("射程", range);
             nbt.setInt("子弹重力", getInt(bulletGravity));
             nbt.setInt("放大", enlarge);
-            nbt.setFloat("枪口上扬最大", pitchAddMax);
-            nbt.setFloat("枪口上扬最小", pitchAddMin);
-            nbt.setFloat("枪口偏移最大", yawAddMax);
-            nbt.setFloat("枪口偏移最小", yawAddMin);
+            nbt.setDouble("枪口上扬最大", pitchAddMax);
+            nbt.setDouble("枪口上扬最小", pitchAddMin);
+            nbt.setDouble("枪口偏移最大", yawAddMax);
+            nbt.setDouble("枪口偏移最小", yawAddMin);
             nbt.setString("物品类型", itemType.name());
             nbt.setShort("附加值", shortValue);
             nbt.setInt("最大使用次数", maxUse);
@@ -259,11 +259,11 @@ public class LastNightGunRecipe extends LastNightItemGun {
 
     public static double getRandom(double min, double max, int i) {
         if (min == max) {
-            return 0;
+            return min;
         }
         double ret = Double.MAX_VALUE;
         for (int j = 0; j < i; j++) {
-            double d = Math.random() * (max - min + 1) + min;
+            double d = Math.random() * (max - min) + min;
             ret = Math.min(ret, d);
         }
         return ret;

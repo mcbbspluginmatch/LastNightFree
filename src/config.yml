@@ -1,0 +1,3 @@
+allowBreakWorlds:
+    - world
+limitDrop: true

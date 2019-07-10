@@ -42,10 +42,10 @@ public class LastNightItemGun extends LastNightItem {
     public short shortValue;
     public int amount = 1;
     public int enlarge;
-    public float pitchAddMax;
-    public float pitchAddMin;
-    public float yawAddMax;
-    public float yawAddMin;
+    public double pitchAddMax;
+    public double pitchAddMin;
+    public double yawAddMax;
+    public double yawAddMin;
     public List<Range> ranges = new ArrayList<>();
     public int forgeTime;
     public String particle;
@@ -53,11 +53,11 @@ public class LastNightItemGun extends LastNightItem {
     public LastNightItemGun() {
     }
 
-    public LastNightItemGun(String name, String type, int value, double damage, double fire, double fireSpeed, int bulletAmount, int maxBulletAmount, int solidValue, double maxDurability, double durability, Material itemType, EntityType bulletEntity, double bulletSpeed, int everyBulletAmount, double replaceTime, String bulletChest, double bulletSpread, double explosionDamage, double explosionRange, double range, boolean bulletGravity, short shortValue, int enlarge, float pitchAddMax, float pitchAddMin, float yawAddMax, float yawAddMin, int forgeTime, String particle) {
+    public LastNightItemGun(String name, String type, int value, double damage, double fire, double fireSpeed, int bulletAmount, int maxBulletAmount, int solidValue, double maxDurability, double durability, Material itemType, EntityType bulletEntity, double bulletSpeed, int everyBulletAmount, double replaceTime, String bulletChest, double bulletSpread, double explosionDamage, double explosionRange, double range, boolean bulletGravity, short shortValue, int enlarge, double pitchAddMax, double pitchAddMin, double yawAddMax, double yawAddMin, int forgeTime, String particle) {
         this(name, type, value, damage, fire, fireSpeed, bulletAmount, maxBulletAmount, solidValue, maxDurability, durability, itemType, bulletEntity.name(), bulletSpeed, everyBulletAmount, replaceTime, bulletChest, bulletSpread, explosionDamage, explosionRange, range, bulletGravity, shortValue, enlarge, pitchAddMax, pitchAddMin, yawAddMax, yawAddMin, forgeTime, particle);
     }
 
-    public LastNightItemGun(String name, String type, int value, double damage, double fire, double fireSpeed, int bulletAmount, int maxBulletAmount, int solidValue, double maxDurability, double durability, Material itemType, String bulletEntity, double bulletSpeed, int everyBulletAmount, double replaceTime, String bulletChest, double bulletSpread, double explosionDamage, double explosionRange, double range, boolean bulletGravity, short shortValue, int enlarge, float pitchAddMax, float pitchAddMin, float yawAddMax, float yawAddMin, int forgeTime, String particle) {
+    public LastNightItemGun(String name, String type, int value, double damage, double fire, double fireSpeed, int bulletAmount, int maxBulletAmount, int solidValue, double maxDurability, double durability, Material itemType, String bulletEntity, double bulletSpeed, int everyBulletAmount, double replaceTime, String bulletChest, double bulletSpread, double explosionDamage, double explosionRange, double range, boolean bulletGravity, short shortValue, int enlarge, double pitchAddMax, double pitchAddMin, double yawAddMax, double yawAddMin, int forgeTime, String particle) {
         this.name = name;
         this.type = type;
         this.value = value;
@@ -123,10 +123,10 @@ public class LastNightItemGun extends LastNightItem {
             this.shortValue = item.getData().getData();
             this.amount = item.getAmount();
             this.enlarge = nbt.getInt("放大");
-            this.pitchAddMax = nbt.getFloat("枪口上扬最大");
-            this.pitchAddMin = nbt.getFloat("枪口上扬最小");
-            this.yawAddMax = nbt.getFloat("枪口偏移最大");
-            this.yawAddMin = nbt.getFloat("枪口偏移最小");
+            this.pitchAddMax = nbt.getDouble("枪口上扬最大");
+            this.pitchAddMin = nbt.getDouble("枪口上扬最小");
+            this.yawAddMax = nbt.getDouble("枪口偏移最大");
+            this.yawAddMin = nbt.getDouble("枪口偏移最小");
             this.forgeTime = nbt.getInt("锻造时间");
             this.particle = nbt.getString("粒子效果");
         }
@@ -166,10 +166,10 @@ public class LastNightItemGun extends LastNightItem {
         nbt.setDouble("射程", range);
         nbt.setInt("子弹重力", getInt(bulletGravity));
         nbt.setInt("放大", enlarge);
-        nbt.setFloat("枪口上扬最大", pitchAddMax);
-        nbt.setFloat("枪口上扬最小", pitchAddMin);
-        nbt.setFloat("枪口偏移最大", yawAddMax);
-        nbt.setFloat("枪口偏移最小", yawAddMin);
+        nbt.setDouble("枪口上扬最大", pitchAddMax);
+        nbt.setDouble("枪口上扬最小", pitchAddMin);
+        nbt.setDouble("枪口偏移最大", yawAddMax);
+        nbt.setDouble("枪口偏移最小", yawAddMin);
         nbt.setString("物品类型", itemType.name());
         nbt.setShort("附加值", shortValue);
         nbt.setInt("锻造时间", forgeTime);
@@ -223,8 +223,8 @@ public class LastNightItemGun extends LastNightItem {
                 rbc.use(use);
                 hasMaxBulletAmount = maxBulletAmount;
             } else {
+                hasMaxBulletAmount += rbc.value;
                 rbc.use(rbc.value);
-                hasMaxBulletAmount = hasMaxBulletAmount + rbc.value;
             }
         }
     }

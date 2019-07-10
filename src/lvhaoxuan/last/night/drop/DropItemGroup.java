@@ -61,9 +61,9 @@ public class DropItemGroup {
 
     public static double getRandom(double min, double max) {
         if (min == max) {
-            return 0;
+            return min;
         }
-        return Math.random() * (max - min + 1) + min;
+        return Math.random() * (max - min) + min;
     }
 
     public void save() {

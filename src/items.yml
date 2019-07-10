@@ -1,81 +1,45 @@
-骨头:
-  ==: org.bukkit.inventory.ItemStack
-  type: BONE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §f骨头
-    lore:
-    - §7一种坚硬的物质
-肉条:
-  ==: org.bukkit.inventory.ItemStack
-  type: ROTTEN_FLESH
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §f肉条
-    lore:
-    - §7可食用
 木头:
-  ==: org.bukkit.inventory.ItemStack
-  type: STICK
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §f木头
-    lore:
-    - §7制造的必要物品
-石头:
-  ==: org.bukkit.inventory.ItemStack
-  type: STONE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §f石头
-    lore:
-    - §7一种坚硬的物质
-铁矿:
-  ==: org.bukkit.inventory.ItemStack
-  type: IRON_ORE
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §f铁矿
-    lore:
-    - §7挖掘石头有几率获得
-高分子涂层:
-  ==: org.bukkit.inventory.ItemStack
-  type: EMERALD
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §b高分子涂层
-    lore:
-    - §a一种珍贵的制造原料
-六角钉:
-  ==: org.bukkit.inventory.ItemStack
-  type: IRON_INGOT
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §f六角钉
-    lore:
-    - §7连接钢构件的必需品
-铁铸件:
-  ==: org.bukkit.inventory.ItemStack
-  type: FLINT
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §f铁铸件
-    lore:
-    - §7制造枪械的必需品
+  item: "CQAACgAAAAEIAAJpZAAPbWluZWNyYWZ0OnN0aWNrAQAFQ291bnQBCgADdGFnAwAM5piO5pel5LmL\r\
+    \n5ZCOAAAABAoAB2Rpc3BsYXkJAARMb3JlCAAAAAEAGMKnN+WItumAoOeahOW/heimgeeJqeWTgQgA\r\
+    \nBE5hbWUACcKnZuacqOWktAAAAgAGRGFtYWdlAAAA\r\n"
+  sources: []
 布:
-  ==: org.bukkit.inventory.ItemStack
-  type: LEATHER
-  meta:
-    ==: ItemMeta
-    meta-type: UNSPECIFIC
-    display-name: §f布
-    lore:
-    - §7制作各种护甲衣服的最基础材料
+  item: "CQAACgAAAAEIAAJpZAARbWluZWNyYWZ0OmxlYXRoZXIBAAVDb3VudAEKAAN0YWcDAAzmmI7ml6Xk\r\
+    \nuYvlkI4AAAAECgAHZGlzcGxheQkABExvcmUIAAAAAQAtwqc35Yi25L2c5ZCE56eN5oqk55Sy6KGj\r\
+    \n5pyN55qE5pyA5Z+656GA5p2Q5paZCAAETmFtZQAGwqdm5biDAAACAAZEYW1hZ2UAAAA=\r\n"
+  sources: []
+高分子涂层:
+  item: "CQAACgAAAAEIAAJpZAARbWluZWNyYWZ0OmVtZXJhbGQBAAVDb3VudAEKAAN0YWcDAAzmmI7ml6Xk\r\
+    \nuYvlkI4AAAAECgAHZGlzcGxheQkABExvcmUIAAAAAQAewqdh5LiA56eN54+N6LS155qE5Yi26YCg\r\
+    \n5Y6f5paZCAAETmFtZQASwqdi6auY5YiG5a2Q5raC5bGCAAACAAZEYW1hZ2UAAAA=\r\n"
+  sources: []
+六角钉:
+  item: "CQAACgAAAAEIAAJpZAAUbWluZWNyYWZ0Omlyb25faW5nb3QBAAVDb3VudAEKAAN0YWcDAAzmmI7m\r\
+    \nl6XkuYvlkI4AAAAECgAHZGlzcGxheQkABExvcmUIAAAAAQAewqc36L+e5o6l6ZKi5p6E5Lu255qE\r\
+    \n5b+F6ZyA5ZOBCAAETmFtZQAMwqdm5YWt6KeS6ZKJAAACAAZEYW1hZ2UAAAA=\r\n"
+  sources: []
+肉条:
+  item: "CQAACgAAAAEIAAJpZAAWbWluZWNyYWZ0OnJvdHRlbl9mbGVzaAEABUNvdW50AQoAA3RhZwMADOaY\r\
+    \njuaXpeS5i+WQjgAAAAQKAAdkaXNwbGF5CQAETG9yZQgAAAABAAzCpzflj6/po5/nlKgIAAROYW1l\r\
+    \nAAnCp2bogonmnaEAAAIABkRhbWFnZQAAAA==\r\n"
+  sources: []
+铁矿:
+  item: "CQAACgAAAAEIAAJpZAASbWluZWNyYWZ0Omlyb25fb3JlAQAFQ291bnQBCgADdGFnAwAM5piO5pel\r\
+    \n5LmL5ZCOAAAABAoAB2Rpc3BsYXkJAARMb3JlCAAAAAEAHsKnN+aMluaOmOefs+WktOacieWHoOeO\r\
+    \nh+iOt+W+lwgABE5hbWUACcKnZumTgeefvwAAAgAGRGFtYWdlAAAA\r\n"
+  sources: []
+骨头:
+  item: "CQAACgAAAAEIAAJpZAAObWluZWNyYWZ0OmJvbmUBAAVDb3VudAEKAAN0YWcDAAzmmI7ml6XkuYvl\r\
+    \nkI4AAAAECgAHZGlzcGxheQkABExvcmUIAAAAAQAYwqc35LiA56eN5Z2a56Gs55qE54mp6LSoCAAE\r\
+    \nTmFtZQAJwqdm6aqo5aS0AAACAAZEYW1hZ2UAAAA=\r\n"
+  sources: []
+石头:
+  item: "CQAACgAAAAEIAAJpZAAPbWluZWNyYWZ0OnN0b25lAQAFQ291bnQBCgADdGFnAwAM5piO5pel5LmL\r\
+    \n5ZCOAAAABAoAB2Rpc3BsYXkJAARMb3JlCAAAAAEAGMKnN+S4gOenjeWdmuehrOeahOeJqei0qAgA\r\
+    \nBE5hbWUACcKnZuefs+WktAAAAgAGRGFtYWdlAAAA\r\n"
+  sources: []
+铁铸件:
+  item: "CQAACgAAAAEIAAJpZAAPbWluZWNyYWZ0OmZsaW50AQAFQ291bnQBCgADdGFnAwAM5piO5pel5LmL\r\
+    \n5ZCOAAAABAoAB2Rpc3BsYXkJAARMb3JlCAAAAAEAG8KnN+WItumAoOaequaisOeahOW/hemcgOWT\r\
+    \ngQgABE5hbWUADMKnZumTgemTuOS7tgAAAgAGRGFtYWdlAAAA\r\n"
+  sources: []
