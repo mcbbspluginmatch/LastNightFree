@@ -11,6 +11,7 @@ import lvhaoxuan.last.night.forge.LastNightGunRecipeMakerInventory;
 import lvhaoxuan.last.night.forge.LastNightGunRecipeReplaceInventory;
 import lvhaoxuan.last.night.gun.*;
 import lvhaoxuan.last.night.item.LastNightItem;
+import lvhaoxuan.last.night.mail.MailInventory;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -125,6 +126,9 @@ public class Commanders implements CommandExecutor {
                     }
                     LastNightGunRecipeMakerInventory lngrmi = new LastNightGunRecipeMakerInventory();
                     lngrmi.open((Player) sender);
+                } else if (args[0].equalsIgnoreCase("mail")) {
+                    MailInventory mi = new MailInventory();
+                    mi.open((Player) sender);
                 }
                 break;
             default:
@@ -156,6 +160,7 @@ public class Commanders implements CommandExecutor {
         sender.sendMessage("§c§l▏   §c/ln gun [类型] [数量] [玩家]   给玩家枪");
         sender.sendMessage("§c§l▏   §c/ln guns   查看所有枪");
         sender.sendMessage("§c§l▏   §c/ln gun paper [类型] [最大使用次数] [数量] [玩家]   给玩家图纸");
+        sender.sendMessage("§c§l▏   §c/ln mail  打开邮箱");
         sender.sendMessage("§c§l▏   §c/ln bc [名称]  放置一个弹药箱");
         sender.sendMessage("§c§l▏   §c/ln bc list  查看所有弹药箱");
         sender.sendMessage("§c§l▏   §c/ln item [物品名称]   以物品名称将手持物品添加到物品组");

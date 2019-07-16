@@ -19,12 +19,12 @@ import org.bukkit.Material;
 import org.bukkit.Bukkit;
 
 public class BreakableBlockListener implements Listener {
-    
+
     public static HashMap<Location, Integer> blockMap = new HashMap<>();
     public static List<String> allowBreakWorld = new ArrayList<>();
     public static int id = 0;
     public static HashMap<Location, Integer> blockIDMap = new HashMap<>();
-    
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void PlayerInteractEvent(PlayerInteractEvent e) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
         if (e.hasBlock() && LastNight.breakableBlockMap.containsKey(e.getClickedBlock().getType()) && allowBreakWorld.contains(e.getClickedBlock().getWorld().getName())) {
@@ -34,7 +34,7 @@ public class BreakableBlockListener implements Listener {
             blockMap.put(e.getClickedBlock().getLocation(), blockMap.get(e.getClickedBlock().getLocation()) - 1);
         }
     }
-    
+
     @EventHandler
     public void ProjectileHitEvent(ProjectileHitEvent e) {
         Projectile p = (Projectile) e.getEntity();
@@ -72,7 +72,7 @@ public class BreakableBlockListener implements Listener {
             }
         }
     }
-    
+
     public static void sendPacketPlayOutBlockBreakAnimation(Player player, Location loc, int value) {
         if (!blockIDMap.containsKey(loc)) {
             blockIDMap.put(loc, id++);
@@ -91,7 +91,7 @@ public class BreakableBlockListener implements Listener {
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
         }
     }
-    
+
     public static void sendPacketPlayOutTitle(Player player, String str, int a, int b, int c) {
         try {
             Class<?> packetPlayOutTitleClass = NBT.Package.MINECRAFT_SERVER.getClass("PacketPlayOutTitle");

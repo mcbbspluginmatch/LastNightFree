@@ -1,15 +1,15 @@
-package lvhaoxuan.last.night.drop;
+package lvhaoxuan.last.night.random;
 
 import lvhaoxuan.last.night.LastNight;
 import org.bukkit.inventory.ItemStack;
 
-public class DropItem {
+public class RandomItem {
 
     double probability;
     String item;
     int amount;
 
-    public DropItem(String item, int amount, double probability) {
+    public RandomItem(String item, int amount, double probability) {
         this.item = item;
         this.amount = amount;
         this.probability = probability;

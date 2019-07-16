@@ -4,13 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lvhaoxuan.last.night.LastNight;
+import lvhaoxuan.last.night.mail.MailManager;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.Bukkit;
+import org.bukkit.inventory.Inventory;
 
 public class LastNightGunForgeManagaer extends BukkitRunnable {
 
     public static HashMap<String, List<LastNightGunRecipe>> userMap = new HashMap<>();
+    public static HashMap<String, Inventory> userInventoryMap = new HashMap<>();
 
     @Override
     public void run() {
@@ -21,14 +24,32 @@ public class LastNightGunForgeManagaer extends BukkitRunnable {
                 LastNightGunRecipe lngr = list.get(0);
                 if (lngr.firstTime == -1) {
                     lngr.firstTime = System.currentTimeMillis();
-                } else if (System.currentTimeMillis() > (lngr.firstTime + lngr.forgeTime * 50)) {
-                    userMap.get(name).remove(0);
+                } else if (System.currentTimeMillis() >= (lngr.firstTime + lngr.forgeTime * 50)) {
+                    list.remove(0);
                     Player p = Bukkit.getPlayer(name);
-                    p.getInventory().addItem(lngr.getResult().toItemStack0(name));
-                    p.sendMessage(LastNight.FORGE_SUCCESS_MESSAGE);
+                    MailManager.addItem(name, lngr.getResult().toItemStack0(name));
+                    if (p != null) {
+                        p.sendMessage(LastNight.FORGE_SUCCESS_MESSAGE);
+                    }
+                    if (!list.isEmpty()) {
+                        lngr = list.get(0);
+                        if (lngr.firstTime == -1) {
+                            lngr.firstTime = System.currentTimeMillis();
+                        }
+                    }
+                    if (p != null && p.getOpenInventory() != null && p.getOpenInventory().getTitle() != null && userInventoryMap.get(name) != null && p.getOpenInventory().getTitle().equals(userInventoryMap.get(name).getTitle())) {
+                        LastNightGunRecipeMakerInventory.check(userInventoryMap.get(name), name);
+                        p.updateInventory();
+                    }
+                } else {
+                    Player p = Bukkit.getPlayer(name);
+                    if (p != null && p.getOpenInventory() != null && p.getOpenInventory().getTitle() != null && userInventoryMap.get(name) != null && p.getOpenInventory().getTitle().equals(userInventoryMap.get(name).getTitle())) {
+                        LastNightGunRecipeMakerInventory.check(userInventoryMap.get(name), name);
+                        p.updateInventory();
+                    }
                 }
             }
         }
-    }
 
+    }
 }

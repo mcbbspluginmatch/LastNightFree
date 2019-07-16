@@ -24,7 +24,9 @@
   pitchAdd: -5 -3
   yawAdd: -1 1
   forgeTime: 6000
-  particle: SMOKE_NORMAL
+  particle: 
+  - SMOKE_NORMAL
+  sound: BLOCK_DISPENSER_LAUNCH
 强袭榴弹炮:
   name: §f强袭榴弹炮
   value: 500
@@ -37,7 +39,7 @@
   maxDurability: 320
   durability: 320
   itemType: IRON_PICKAXE:0
-  bulletEntity: SNOWBALL
+  bulletEntity: EGG
   bulletSpeed: 1.0
   everyBulletAmount: 1
   replaceTime: 5.0
@@ -59,7 +61,10 @@
   - 骨头 24
   - 高分子涂层 4
   forgeTime: 6000
-  particle: SMOKE_NORMAL
+  particle: 
+  - SMOKE_NORMAL
+  - SPIT
+  sound: BLOCK_DISPENSER_LAUNCH
 管理榴弹炮:
   name: §f管理榴弹炮
   value: 500
@@ -86,6 +91,7 @@
   pitchAdd: 0 0
   yawAdd: 0 0
   forgeTime: 6000
+  sound: BLOCK_DISPENSER_LAUNCH
 UZI冲锋枪:
   name: §fUZI冲锋枪
   value: 200
@@ -112,6 +118,7 @@ UZI冲锋枪:
   pitchAdd: -2 -3
   yawAdd: -2 2
   forgeTime: 6000
+  sound: BLOCK_DISPENSER_LAUNCH
 雷明顿M870:
   name: §f雷明顿M870
   value: 200
@@ -138,6 +145,7 @@ UZI冲锋枪:
   pitchAdd: -10 -15
   yawAdd: -3 3
   forgeTime: 6000
+  sound: BLOCK_DISPENSER_LAUNCH
 95式突击步枪:
   name: §f95式突击步枪
   value: 400
@@ -164,6 +172,7 @@ UZI冲锋枪:
   pitchAdd: -1 -2
   yawAdd: -0.5 0.5
   forgeTime: 6000
+  sound: BLOCK_DISPENSER_LAUNCH
 吉斯塔夫火箭筒:
   name: §f吉斯塔夫火箭筒
   value: 500
@@ -190,3 +199,4 @@ UZI冲锋枪:
   pitchAdd: -1 0
   yawAdd: 0 0
   forgeTime: 6000
+  sound: BLOCK_DISPENSER_LAUNCH

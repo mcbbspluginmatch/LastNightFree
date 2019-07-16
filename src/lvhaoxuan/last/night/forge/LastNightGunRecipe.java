@@ -3,8 +3,10 @@ package lvhaoxuan.last.night.forge;
 import java.lang.reflect.Field;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 import lvhaoxuan.last.night.LastNight;
 import static lvhaoxuan.last.night.LastNight.RECIPE;
 import lvhaoxuan.last.night.gun.LastNightItemGun;
@@ -25,7 +27,7 @@ public class LastNightGunRecipe extends LastNightItemGun {
     public long firstTime = -1;
 
     public LastNightGunRecipe(LastNightItemGun lnig, int maxUse) {
-        super(lnig.name, lnig.type, lnig.value, lnig.damage, lnig.fire, lnig.fireSpeed, lnig.bulletAmount, lnig.maxBulletAmount, lnig.solidValue, lnig.maxDurability, lnig.durability, lnig.itemType, lnig.bulletEntity, lnig.bulletSpeed, lnig.everyBulletAmount, lnig.replaceTime, lnig.bulletChest, lnig.bulletSpread, lnig.explosionDamage, lnig.explosionRange, lnig.range, lnig.bulletGravity, lnig.shortValue, lnig.enlarge, lnig.pitchAddMax, lnig.pitchAddMin, lnig.yawAddMax, lnig.yawAddMin, lnig.forgeTime, lnig.particle);
+        super(lnig.name, lnig.type, lnig.value, lnig.damage, lnig.fire, lnig.fireSpeed, lnig.bulletAmount, lnig.maxBulletAmount, lnig.solidValue, lnig.maxDurability, lnig.durability, lnig.itemType, lnig.bulletEntity, lnig.bulletSpeed, lnig.everyBulletAmount, lnig.replaceTime, lnig.bulletChest, lnig.bulletSpread, lnig.explosionDamage, lnig.explosionRange, lnig.range, lnig.bulletGravity, lnig.shortValue, lnig.enlarge, lnig.pitchAddMax, lnig.pitchAddMin, lnig.yawAddMax, lnig.yawAddMin, lnig.forgeTime, lnig.particle, lnig.sound);
         this.maxUse = maxUse;
         this.use = maxUse;
         for (Range key : lnig.ranges) {
@@ -100,7 +102,8 @@ public class LastNightGunRecipe extends LastNightItemGun {
             this.maxUse = nbt.getInt("最大使用次数");
             this.use = nbt.getInt("剩余使用次数");
             this.forgeTime = nbt.getInt("锻造时间");
-            this.particle = nbt.getString("粒子效果");
+            this.particle = Arrays.asList(nbt.getString("粒子效果").split("-")).stream().map(s -> String.format(s.trim())).collect(Collectors.toList());
+            this.sound = nbt.getString("音效");
             this.sources = LastNight.guns.get(type).sources;
         }
     }
@@ -160,7 +163,9 @@ public class LastNightGunRecipe extends LastNightItemGun {
             nbt.setInt("最大使用次数", maxUse);
             nbt.setInt("剩余使用次数", use);
             nbt.setInt("锻造时间", forgeTime);
-            nbt.setString("粒子效果", particle);
+            nbt.setString("粒子效果", String.join("-", particle));
+            nbt.setString("音效", sound);
+            nbt.setString("防止叠加", System.currentTimeMillis() + "");
             item = nbt.toItemStack();
             item = calibration(item);
         }

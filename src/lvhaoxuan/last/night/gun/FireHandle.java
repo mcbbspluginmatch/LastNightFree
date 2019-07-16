@@ -1,5 +1,6 @@
 package lvhaoxuan.last.night.gun;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,10 +26,15 @@ public class FireHandle {
             lastFireTimeMap.put(p.getName(), fireTime);
             for (int i = 0; i < ibg.everyBulletAmount * ibg.fireSpeed / 300; i++) {
                 Projectile pr = (Projectile) p.getWorld().spawnEntity(p.getEyeLocation(), EntityType.valueOf(ibg.bulletEntity));
-                for (Particle pa : Particle.values()) {
-                    if (pa.name().equals(ibg.particle)) {
-                        ParticleManager.entities.put(pr, pa);
-                        break;
+                for (String str : ibg.particle) {
+                    for (Particle pa : Particle.values()) {
+                        if (pa.name().equals(str)) {
+                            if (!ParticleManager.entities.containsKey(pr)) {
+                                ParticleManager.entities.put(pr, new ArrayList<>());
+                            }
+                            ParticleManager.entities.get(pr).add(pa);
+                            break;
+                        }
                     }
                 }
                 pr.setMetadata("lastnight_damage", new FixedMetadataValue(LastNight.plugin, ibg.damage * ibg.fire));
@@ -41,6 +47,9 @@ public class FireHandle {
                 pr.setVelocity(p.getLocation().getDirection().normalize().multiply(ibg.bulletSpeed).add(Vector.getRandom().multiply(getRandom(-ibg.bulletSpread, ibg.bulletSpread))));
             }
             ibg.use();
+            if (ibg.sound.length() > 0) {
+                p.getWorld().playSound(p.getLocation(), Sound.valueOf(ibg.sound), 2, 1);
+            }
             sendPacketPlayOutPosition(p, (float) getRandom(ibg.yawAddMin, ibg.yawAddMax), (float) getRandom(ibg.pitchAddMin, ibg.pitchAddMax));
             p.getInventory().setItemInMainHand(ibg.toItemStack());
             return true;

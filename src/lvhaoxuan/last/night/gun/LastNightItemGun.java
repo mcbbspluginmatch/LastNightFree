@@ -3,7 +3,9 @@ package lvhaoxuan.last.night.gun;
 import java.text.DecimalFormat;
 import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import lvhaoxuan.last.night.LastNight;
 import lvhaoxuan.last.night.forge.LastNightGunRecipe;
 import lvhaoxuan.last.night.item.LastNightItem;
@@ -48,16 +50,17 @@ public class LastNightItemGun extends LastNightItem {
     public double yawAddMin;
     public List<Range> ranges = new ArrayList<>();
     public int forgeTime;
-    public String particle;
+    public List<String> particle = new ArrayList<>();
+    public String sound;
 
     public LastNightItemGun() {
     }
 
-    public LastNightItemGun(String name, String type, int value, double damage, double fire, double fireSpeed, int bulletAmount, int maxBulletAmount, int solidValue, double maxDurability, double durability, Material itemType, EntityType bulletEntity, double bulletSpeed, int everyBulletAmount, double replaceTime, String bulletChest, double bulletSpread, double explosionDamage, double explosionRange, double range, boolean bulletGravity, short shortValue, int enlarge, double pitchAddMax, double pitchAddMin, double yawAddMax, double yawAddMin, int forgeTime, String particle) {
-        this(name, type, value, damage, fire, fireSpeed, bulletAmount, maxBulletAmount, solidValue, maxDurability, durability, itemType, bulletEntity.name(), bulletSpeed, everyBulletAmount, replaceTime, bulletChest, bulletSpread, explosionDamage, explosionRange, range, bulletGravity, shortValue, enlarge, pitchAddMax, pitchAddMin, yawAddMax, yawAddMin, forgeTime, particle);
+    public LastNightItemGun(String name, String type, int value, double damage, double fire, double fireSpeed, int bulletAmount, int maxBulletAmount, int solidValue, double maxDurability, double durability, Material itemType, EntityType bulletEntity, double bulletSpeed, int everyBulletAmount, double replaceTime, String bulletChest, double bulletSpread, double explosionDamage, double explosionRange, double range, boolean bulletGravity, short shortValue, int enlarge, double pitchAddMax, double pitchAddMin, double yawAddMax, double yawAddMin, int forgeTime, List<String> particle, String sound) {
+        this(name, type, value, damage, fire, fireSpeed, bulletAmount, maxBulletAmount, solidValue, maxDurability, durability, itemType, bulletEntity.name(), bulletSpeed, everyBulletAmount, replaceTime, bulletChest, bulletSpread, explosionDamage, explosionRange, range, bulletGravity, shortValue, enlarge, pitchAddMax, pitchAddMin, yawAddMax, yawAddMin, forgeTime, particle, sound);
     }
 
-    public LastNightItemGun(String name, String type, int value, double damage, double fire, double fireSpeed, int bulletAmount, int maxBulletAmount, int solidValue, double maxDurability, double durability, Material itemType, String bulletEntity, double bulletSpeed, int everyBulletAmount, double replaceTime, String bulletChest, double bulletSpread, double explosionDamage, double explosionRange, double range, boolean bulletGravity, short shortValue, int enlarge, double pitchAddMax, double pitchAddMin, double yawAddMax, double yawAddMin, int forgeTime, String particle) {
+    public LastNightItemGun(String name, String type, int value, double damage, double fire, double fireSpeed, int bulletAmount, int maxBulletAmount, int solidValue, double maxDurability, double durability, Material itemType, String bulletEntity, double bulletSpeed, int everyBulletAmount, double replaceTime, String bulletChest, double bulletSpread, double explosionDamage, double explosionRange, double range, boolean bulletGravity, short shortValue, int enlarge, double pitchAddMax, double pitchAddMin, double yawAddMax, double yawAddMin, int forgeTime, List<String> particle, String sound) {
         this.name = name;
         this.type = type;
         this.value = value;
@@ -90,6 +93,7 @@ public class LastNightItemGun extends LastNightItem {
         this.yawAddMin = yawAddMin;
         this.forgeTime = forgeTime;
         this.particle = particle;
+        this.sound = sound;
     }
 
     public LastNightItemGun(ItemStack item) {
@@ -128,7 +132,8 @@ public class LastNightItemGun extends LastNightItem {
             this.yawAddMax = nbt.getDouble("枪口偏移最大");
             this.yawAddMin = nbt.getDouble("枪口偏移最小");
             this.forgeTime = nbt.getInt("锻造时间");
-            this.particle = nbt.getString("粒子效果");
+            this.particle = Arrays.asList(nbt.getString("粒子效果").split("-")).stream().map(s -> String.format(s.trim())).collect(Collectors.toList());
+            this.sound = nbt.getString("音效");
         }
     }
 
@@ -137,6 +142,9 @@ public class LastNightItemGun extends LastNightItem {
     }
 
     public ItemStack toItemStack0(String maker) {
+        if (this.itemType == Material.AIR || this.itemType == null) {
+            return new ItemStack(Material.AIR);
+        }
         this.maker = maker;
         ItemStack item = new ItemStack(itemType, amount, shortValue);
         NBT nbt = new NBT(item);
@@ -173,7 +181,8 @@ public class LastNightItemGun extends LastNightItem {
         nbt.setString("物品类型", itemType.name());
         nbt.setShort("附加值", shortValue);
         nbt.setInt("锻造时间", forgeTime);
-        nbt.setString("粒子效果", particle);
+        nbt.setString("粒子效果", String.join("-", particle));
+        nbt.setString("音效", sound);
         item = nbt.toItemStack();
         item = calibration(item);
         return item;
@@ -234,7 +243,7 @@ public class LastNightItemGun extends LastNightItem {
     }
 
     public LastNightItemGun clone() {
-        LastNightItemGun lnig = new LastNightItemGun(name, type, value, damage, fire, fireSpeed, bulletAmount, maxBulletAmount, solidValue, maxDurability, durability, itemType, bulletEntity, bulletSpeed, everyBulletAmount, replaceTime, bulletChest, bulletSpread, explosionDamage, explosionRange, range, bulletGravity, shortValue, enlarge, pitchAddMax, pitchAddMin, yawAddMax, yawAddMin, forgeTime, particle);
+        LastNightItemGun lnig = new LastNightItemGun(name, type, value, damage, fire, fireSpeed, bulletAmount, maxBulletAmount, solidValue, maxDurability, durability, itemType, bulletEntity, bulletSpeed, everyBulletAmount, replaceTime, bulletChest, bulletSpread, explosionDamage, explosionRange, range, bulletGravity, shortValue, enlarge, pitchAddMax, pitchAddMin, yawAddMax, yawAddMin, forgeTime, particle, sound);
         lnig.ranges = ranges;
         lnig.sources = sources;
         return lnig;

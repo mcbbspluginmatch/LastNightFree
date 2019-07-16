@@ -3,28 +3,23 @@ package lvhaoxuan.last.night.listener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 import lvhaoxuan.last.night.LastNight;
-import lvhaoxuan.last.night.drop.DropItemGroup;
 import lvhaoxuan.last.night.forge.LastNightGunForgeManagaer;
 import lvhaoxuan.last.night.forge.LastNightGunRecipe;
 import lvhaoxuan.last.night.forge.LastNightGunRecipeInventory;
 import lvhaoxuan.last.night.forge.LastNightGunRecipeMakerInventory;
 import lvhaoxuan.last.night.forge.RecipeItem;
 import lvhaoxuan.last.night.gun.*;
+import lvhaoxuan.last.night.mail.MailManager;
 import lvhaoxuan.last.night.util.NBT;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
-import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.*;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.block.Block;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.ClickType;
@@ -39,7 +34,7 @@ public class MainListener implements Listener {
     public static HashMap<UUID, LastNightGunRecipe> recipeMap = new HashMap<>();
     public static HashMap<UUID, Integer> runnableMap = new HashMap<>();
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void PlayerInteractEvent(PlayerInteractEvent e) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
         Player p = e.getPlayer();
         ItemStack item = p.getInventory().getItemInMainHand();
@@ -122,7 +117,7 @@ public class MainListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void EntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
         Entity damager = e.getDamager();
         double damage = e.getDamage();
@@ -141,7 +136,7 @@ public class MainListener implements Listener {
         e.setDamage(damage);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void PlayerInteractAtEntityEvent(PlayerInteractAtEntityEvent e) {
         Entity en = e.getRightClicked();
         if (en instanceof ArmorStand) {
@@ -155,7 +150,7 @@ public class MainListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void ProjectileHitEvent(ProjectileHitEvent e) {
         Projectile p = (Projectile) e.getEntity();
         if (p.getShooter() instanceof LivingEntity) {
@@ -173,7 +168,7 @@ public class MainListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void PlayerItemHeldEvent(PlayerItemHeldEvent e) {
         if (FireHandle.lastReplaceMap.get(e.getPlayer().getName()) != null) {
             Bukkit.getScheduler().cancelTask(FireHandle.lastReplaceMap.get(e.getPlayer().getName()));
@@ -190,7 +185,8 @@ public class MainListener implements Listener {
 
     public void createExplosion(Location loc, double range) {
         if (range != 0) {
-            loc.clone().add(getRandom(-range, range), getRandom(-range, range), getRandom(-range, range)).getWorld().spawnParticle(Particle.EXPLOSION_HUGE, loc, 0);
+            loc.getWorld().spawnParticle(Particle.EXPLOSION_HUGE, loc, 0);
+            loc.getWorld().playSound(loc, Sound.BLOCK_END_GATEWAY_SPAWN, 2, 1);
         }
     }
 
@@ -201,7 +197,7 @@ public class MainListener implements Listener {
         return Math.random() * (max - min) + min;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void InventoryClickEvent(InventoryClickEvent e) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
         Inventory inv = e.getInventory();
         if (inv == null) {
@@ -297,6 +293,13 @@ public class MainListener implements Listener {
                 }
                 e.setCancelled(true);
                 break;
+            case LastNight.MAIL_INVENTORY:
+                if (e.getRawSlot() > 53) {
+                    return;
+                }
+                Player p = (Player) e.getWhoClicked();
+                MailManager.playerDatas.get(p.getName()).setItems(e.getClickedInventory().getContents());
+                break;
             default:
                 break;
         }
@@ -313,7 +316,7 @@ public class MainListener implements Listener {
         return null;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void InventoryCloseEvent(InventoryCloseEvent e) {
         Inventory inv = e.getInventory();
         Player p = (Player) e.getPlayer();
@@ -343,27 +346,47 @@ public class MainListener implements Listener {
                     break;
                 }
                 case LastNight.MAKER: {
-                    LastNightGunRecipe lngr = recipeMap.get(p.getUniqueId());
-                    if (lngr != null) {
-                        if (!LastNightGunForgeManagaer.userMap.containsKey(p.getName()) || LastNightGunForgeManagaer.userMap.get(p.getName()).isEmpty()) {
-                            LastNightGunForgeManagaer.userMap.put(p.getName(), new ArrayList<>());
-                        }
-                        if (lngr.canForge(inv) && LastNightGunForgeManagaer.userMap.size() < 6) {
-                            lngr.useRecipe();
-                            LastNightGunForgeManagaer.userMap.get(p.getName()).add(lngr);
-                            p.getInventory().setItemInMainHand(lngr.toItemStack());
-                            p.sendMessage("§b锻造中");
-                        }
+                    int count = 0;
+                    if (LastNightGunForgeManagaer.userMap.containsKey(p.getName())) {
+                        count = MailManager.playerDatas.get(p.getName()).items.size() + LastNightGunForgeManagaer.userMap.get(p.getName()).size();
+                    } else {
+                        count = MailManager.playerDatas.get(p.getName()).items.size();
                     }
-                    int i = 0;
-                    for (ItemStack item : inv) {
-                        if (item != null && item.getType() != Material.AIR) {
-                            p.getInventory().addItem(item);
-                            i++;
+                    if (count < 55) {
+                        LastNightGunRecipe lngr = recipeMap.get(p.getUniqueId());
+                        if (lngr != null) {
+                            if (!LastNightGunForgeManagaer.userMap.containsKey(p.getName()) || LastNightGunForgeManagaer.userMap.get(p.getName()).isEmpty()) {
+                                LastNightGunForgeManagaer.userMap.put(p.getName(), new ArrayList<>());
+                            }
+                            if (lngr.canForge(inv) && LastNightGunForgeManagaer.userMap.size() < 6) {
+                                lngr.useRecipe();
+                                LastNightGunForgeManagaer.userMap.get(p.getName()).add(lngr);
+                                p.getInventory().setItemInMainHand(lngr.toItemStack());
+                                p.sendMessage("§b锻造中");
+                            }
                         }
-                    }
-                    if (i > 0) {
-                        p.sendMessage(LastNight.BACK_MESSAGE);
+                        int i = 0;
+                        for (ItemStack item : inv) {
+                            if (item != null && item.getType() != Material.AIR) {
+                                p.getInventory().addItem(item);
+                                i++;
+                            }
+                        }
+                        if (i > 0) {
+                            p.sendMessage(LastNight.BACK_MESSAGE);
+                        }
+                    } else {
+                        p.sendMessage(LastNight.MAIL_FULL_MESSAGE);
+                        int i = 0;
+                        for (ItemStack item : inv) {
+                            if (item != null && item.getType() != Material.AIR) {
+                                p.getInventory().addItem(item);
+                                i++;
+                            }
+                        }
+                        if (i > 0) {
+                            p.sendMessage(LastNight.BACK_MESSAGE);
+                        }
                     }
                     break;
                 }
@@ -381,7 +404,7 @@ public class MainListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void PlayerDeathEvent(PlayerDeathEvent e) {
         e.setKeepInventory(true);
         Player p = e.getEntity();

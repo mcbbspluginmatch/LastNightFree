@@ -3,6 +3,7 @@ package lvhaoxuan.last.night.loader;
 import java.io.File;
 import lvhaoxuan.last.night.LastNight;
 import lvhaoxuan.last.night.breakableblock.BreakableBlockListener;
+import lvhaoxuan.last.night.random.RandomItemGroup;
 import lvhaoxuan.last.night.forge.RecipeItem;
 import lvhaoxuan.last.night.gun.BulletChest;
 import lvhaoxuan.last.night.gun.BulletChestManager;
@@ -10,7 +11,7 @@ import lvhaoxuan.last.night.gun.LastNightItemGun;
 import lvhaoxuan.last.night.gun.Range;
 import lvhaoxuan.last.night.item.LastNightItem;
 import lvhaoxuan.last.night.util.ItemSerializerUtils;
-import lvhaoxuan.last.night.util.NBT;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -52,7 +53,8 @@ public class Loader {
                         Double.parseDouble(config1.getString(key1 + ".yawAdd").split(" ")[0]),
                         Double.parseDouble(config1.getString(key1 + ".yawAdd").split(" ")[1]),
                         config1.getInt(key1 + ".forgeTime"),
-                        config1.getString(key1 + ".particle"));
+                        config1.getStringList(key1 + ".particle"),
+                        config1.getString(key1 + ".sound"));
                 for (String key2 : config1.getStringList(key1 + ".randomRanges")) {
                     Range r = new Range(
                             key2.split(" ")[0],
@@ -97,9 +99,6 @@ public class Loader {
             for (String key : config1.getKeys(false)) {
                 LastNightItem lni = new LastNightItem();
                 lni.item = ItemSerializerUtils.fromBase64(config1.getString(key + ".item"))[0];
-                NBT nbt = new NBT(lni.item);
-                nbt.setInt("明日之后", LastNight.ITEM);
-                lni.item = nbt.toItemStack();
                 for (String s : config1.getStringList(key + ".sources")) {
                     RecipeItem ri = new RecipeItem(s.split(" ")[0], Integer.parseInt(s.split(" ")[1]));
                     lni.sources.add(ri);
@@ -131,6 +130,7 @@ public class Loader {
         if (file1.exists()) {
             BreakableBlockListener.allowBreakWorld = config1.getStringList("allowBreakWorlds");
             LastNight.limitDrop = config1.getBoolean("limitDrop");
+            LastNight.clearRecipes = config1.getBoolean("clearRecipes");
         } else {
             p.saveResource("config.yml", true);
             loadConfig(p);

@@ -16,24 +16,26 @@ public class LastNightGunRecipeMakerInventory {
     public void open(Player p) {
         this.p = p;
         Inventory inv = Bukkit.createInventory(null, 54, LastNight.MAKER_INVENTORY);
-        check(inv);
+        check(inv, p.getName());
         p.openInventory(inv);
     }
 
-    public void check(Inventory inv) {
-        List<LastNightGunRecipe> lngrs = LastNightGunForgeManagaer.userMap.get(p.getName());
+    public static void check(Inventory inv, String name) {
+        inv.clear();
+        List<LastNightGunRecipe> lngrs = LastNightGunForgeManagaer.userMap.get(name);
+        LastNightGunForgeManagaer.userInventoryMap.put(name, inv);
         int i = 0;
         for (LastNightGunRecipe lngr : lngrs) {
             if (i == 0) {
-                ItemStack item = lngr.getResult().toItemStack0(p.getName());
+                ItemStack item = lngr.getResult().toItemStack0(name);
                 ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName(meta.getDisplayName() + " " + Commanders.getTime(lngr.firstTime + lngr.forgeTime * 50 - System.currentTimeMillis()));
+                meta.setDisplayName(meta.getDisplayName() + " §a" + Commanders.getTime(lngr.firstTime + lngr.forgeTime * 50 - System.currentTimeMillis()));
                 item.setItemMeta(meta);
                 inv.setItem(i, item);
             } else {
                 ItemStack item = lngr.toItemStack();
                 ItemMeta meta = item.getItemMeta();
-                meta.setDisplayName(meta.getDisplayName() + " " + Commanders.getTime(lngr.forgeTime * 50));
+                meta.setDisplayName(meta.getDisplayName() + " §a" + Commanders.getTime(lngr.forgeTime * 50));
                 item.setItemMeta(meta);
                 inv.setItem(i, item);
             }
