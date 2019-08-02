@@ -16,6 +16,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class LastNightItemGun extends LastNightItem {
 
+    // 设计不佳，当添加一种属性时须更改超过 10 处 —— 754503921
+
     public String name;
     public String type;
     public int value;

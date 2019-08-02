@@ -9,6 +9,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class ParticleManager extends BukkitRunnable {
 
+    // 在普通容器内存储服务器大对象导致无法垃圾回收
+    // Find Usage 后未发现移除该容器内 Entity 的调用 —— 754503921
     public static HashMap<Entity, List<Particle>> entities = new HashMap<>();
 
     @Override

@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class LastNightGunRecipeMakerInventory {
 
-    Player p;
+    Player p; // 这个变量有什么用吗 —— 754503921
 
     public void open(Player p) {
         this.p = p;

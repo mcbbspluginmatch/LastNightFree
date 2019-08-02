@@ -334,7 +334,7 @@ public class MainListener implements Listener {
                     int i = 0;
                     for (ItemStack item : inv) {
                         if (item != null) {
-                            if (item != null) {
+                            if (item != null) { // 这是什么意思 —— 754503921
                                 p.getInventory().addItem(item);
                                 i++;
                             }

@@ -60,6 +60,7 @@ public class Commanders implements CommandExecutor {
                 case 2:
                     if (args[0].equalsIgnoreCase("bc")) {
                         if (args[1].equalsIgnoreCase("list")) {
+                            // 打了这么多遍，不能提取一下吗 —— 754503921
                             sender.sendMessage("§c§m§l  §6§m§l  §e§m§l  §a§m§l  §b§m§l  §e§l明日之后§b§m§l  §a§m§l  §e§m§l  §6§m§l  §c§m§l  ");
                             for (String name : BulletChestManager.chestsNameMap.keySet()) {
                                 sender.sendMessage(name);

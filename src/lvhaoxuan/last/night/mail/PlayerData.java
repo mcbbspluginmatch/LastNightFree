@@ -19,6 +19,8 @@ public class PlayerData {
     public PlayerData(String name, List<ItemStack> items) {
         this.name = name;
         this.items = items;
+        // 这一段不存在则创建的逻辑出现了这么多遍，为什么不提取出来呢
+        // 以及既然构造方法已经创建了文件，为什么下面的方法还要检查一遍呢 —— 754503921
         File file = new File(MailManager.save, name + ".yml");
         if (!file.exists()) {
             try {
@@ -42,6 +44,7 @@ public class PlayerData {
         items = new ArrayList<>(Arrays.asList(ItemSerializerUtils.fromBase64(config1.getString(name + ".items"))));
     }
 
+    // 在主线程上执行这么多序列化和 IO 操作，可能影响服务器性能 —— 754503921
     public void setItems(ItemStack[] itemss) {
         items.clear();
         for (ItemStack item : itemss) {

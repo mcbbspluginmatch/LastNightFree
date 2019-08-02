@@ -40,6 +40,8 @@ public class LastNightGunRecipe extends LastNightItemGun {
         this.sources = LastNight.guns.get(type).sources;
     }
 
+    // 硬编码 —— 754503921
+
     public void calibrationValue(LastNightItemGun base) {
         double value = 0;
         value += (this.damage - base.damage) * 5;

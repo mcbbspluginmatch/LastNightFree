@@ -8,6 +8,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class MailInventory {
 
+    // 这个类没有任何字段，为什么不做成静态方法呢 —— 754503921
+
     public void open(Player p) {
         Inventory inv = Bukkit.createInventory(null, 54, LastNight.MAIL_INVENTORY);
         check(inv, p.getName());

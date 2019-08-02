@@ -37,6 +37,7 @@ public class LastNightGunForgeManagaer extends BukkitRunnable {
                             lngr.firstTime = System.currentTimeMillis();
                         }
                     }
+                    // 基于 title 的背包判断是不好的，建议更换为基于 InventoryView 的判断 —— 754503921
                     if (p != null && p.getOpenInventory() != null && p.getOpenInventory().getTitle() != null && userInventoryMap.get(name) != null && p.getOpenInventory().getTitle().equals(userInventoryMap.get(name).getTitle())) {
                         LastNightGunRecipeMakerInventory.check(userInventoryMap.get(name), name);
                         p.updateInventory();

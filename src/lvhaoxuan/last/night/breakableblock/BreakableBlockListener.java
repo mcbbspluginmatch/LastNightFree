@@ -35,6 +35,7 @@ public class BreakableBlockListener implements Listener {
         }
     }
 
+    // 一行不要太长，虽然我也喜欢超长，但你这个超了一倍还多是真的过分了 —— 754503921
     @EventHandler
     public void ProjectileHitEvent(ProjectileHitEvent e) {
         Projectile p = (Projectile) e.getEntity();
@@ -107,6 +108,7 @@ public class BreakableBlockListener implements Listener {
                     new NBT.ParamGroup(c, int.class)
             );
             Object nmsPlayer = NBT.doMethod(player, "getHandle");
+            // 既然都整了一个 doMethod，那再抽象一个 getField 不好吗 —— 754503921
             Object playerConnection = nmsPlayer.getClass().getField("playerConnection").get(nmsPlayer);
             NBT.doMethod(playerConnection, "sendPacket", new NBT.ParamGroup(packet, packetClass));
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {

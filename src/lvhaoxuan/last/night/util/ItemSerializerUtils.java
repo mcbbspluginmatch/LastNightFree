@@ -18,6 +18,8 @@ public class ItemSerializerUtils {
     private static Method WRITE_NBT;
     private static Method READ_NBT;
 
+    // 为什么不用 ProtocolLib 的呢 —— 754503921
+
     public static String toBase64(ItemStack[] items) {
         ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
         DataOutputStream localDataOutputStream = new DataOutputStream(localByteArrayOutputStream);

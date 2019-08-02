@@ -57,7 +57,7 @@ public class Loader {
                         config1.getString(key1 + ".sound"));
                 for (String key2 : config1.getStringList(key1 + ".randomRanges")) {
                     Range r = new Range(
-                            key2.split(" ")[0],
+                            key2.split(" ")[0], // split 了三遍 —— 754503921
                             Double.parseDouble(key2.split(" ")[1]),
                             Double.parseDouble(key2.split(" ")[2]));
                     ibg.ranges.add(r);
